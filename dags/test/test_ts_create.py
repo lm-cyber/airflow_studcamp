@@ -115,7 +115,7 @@ def create_embedding():
 gen_emmbeding = PythonOperator(
     task_id="create_embedding",
     provide_context=True,
-    python_callable=create_embedding(),
+    python_callable=create_embedding,
     dag=dag,
 )
 

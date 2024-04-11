@@ -45,6 +45,8 @@ DEFAULT_ARGS = {
     "retries": 1,
     "retry_delay": timedelta(minutes=1),
 }
+import os
+os.environ['HF_HOME'] = '/tmp/'
 
 dag = DAG(
     "create_embs",

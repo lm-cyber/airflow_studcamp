@@ -47,7 +47,7 @@ DEFAULT_ARGS = {
 }
 
 dag = DAG(
-    "test_create",
+    "create_embs",
     tags=["mlops"],
     catchup=False,
     start_date=days_ago(2),

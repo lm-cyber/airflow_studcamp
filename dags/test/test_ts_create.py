@@ -47,7 +47,7 @@ DEFAULT_ARGS = {
 }
 
 dag = DAG(
-    "test_torch",
+    "test_create",
     tags=["mlops"],
     catchup=False,
     start_date=days_ago(2),

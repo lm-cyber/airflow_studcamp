@@ -67,7 +67,7 @@ def parse_one_news(url):
 
 def parse_kommersant(date, title_code):
     time_sleep_stamps = [0.01, 0.05, 0.07]
-    final_date = datetime.date(2015, 1, 1)
+    final_date = datetime.date(2024, 1, 1)
 
     while date != final_date:
         news_text = []

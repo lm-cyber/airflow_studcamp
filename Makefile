@@ -15,22 +15,22 @@ check_and_rename_env:
       fi
 
 build: check_and_rename_env
-	docker compose build
+	docker-compose build
 	@echo "Waiting for 15 seconds..."
 	@sleep 15
 
 
 init: build
-	docker compose up airflow-init
+	docker-compose up airflow-init
 
 run_local_s3:
-	docker compose -f docker-compose.s3.yaml up -d
+	docker-compose -f docker-compose.s3.yaml up -d
 stop_local_s3:
-	docker compose -f docker-compose.s3.yaml down
+	docker-compose -f docker-compose.s3.yaml down
 
 run:
-	docker compose up -d
+	docker-compose up -d
 
 stop:
-	docker compose down --remove-orphans
+	docker-compose down --remove-orphans
 

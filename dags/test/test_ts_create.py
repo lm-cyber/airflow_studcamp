@@ -45,8 +45,6 @@ DEFAULT_ARGS = {
     "retries": 1,
     "retry_delay": timedelta(minutes=1),
 }
-import os
-os.environ['HF_HOME'] = '/tmp/'
 
 dag = DAG(
     "create_embs",
@@ -61,8 +59,8 @@ dag = DAG(
 
 
 def create_embedding():
-    tokenizer = AutoTokenizer.from_pretrained("cointegrated/rubert-tiny2")
-    model = AutoModel.from_pretrained("cointegrated/rubert-tiny2")
+    tokenizer = AutoTokenizer.from_pretrained("cointegrated/rubert-tiny2",cache_dir="/tmp/")
+    model = AutoModel.from_pretrained("cointegrated/rubert-tiny2",cache_dir="/tmp/")
 
     def embed_bert_cls(text, model, tokenizer):
         t = tokenizer(text, padding=True, truncation=True, return_tensors='pt')

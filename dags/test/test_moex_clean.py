@@ -7,7 +7,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-
+import os
 import logging
 import torch
 import pandas as pd

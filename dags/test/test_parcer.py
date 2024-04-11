@@ -35,7 +35,7 @@ logger.addHandler(logging.StreamHandler())
 cid = "s3_connection"
 
 DEFAULT_ARGS = {
-    "owner": "Alan",
+    "owner": "Dmitrii",
     "depends_on_past": False,
     "email_on_failure": False,
     "email_on_retry": False,
@@ -45,7 +45,7 @@ DEFAULT_ARGS = {
 
 dag = DAG(
     "parser_news_data",
-    tags=["pipeline"],
+    tags=["mlops"],
     catchup=False,
     start_date=days_ago(2),
     default_args=DEFAULT_ARGS,

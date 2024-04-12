@@ -63,8 +63,23 @@ dag = DAG(
 def create_embedding():
     n_comp = 20
     dirs = set(os.listdir("/tmp/")) - set(["models--cointegrated--rubert-tiny2", "requirements.txt", "tmp5sgasuflcacert.pem"])
+
+    def remove_directory(path):
+        if os.path.exists(path):
+            for root, dirs, files in os.walk(path, topdown=False):
+                for name in files:
+                    file_path = os.path.join(root, name)
+                    os.remove(file_path)
+                for name in dirs:
+                    dir_path = os.path.join(root, name)
+                    os.rmdir(dir_path)
+            os.rmdir(path)
     for d in dirs:
-        os.remove(f"/tmp/{d}")
+        if os.path.isdir(f"/tmp/{d}"):
+            remove_directory(f"/tmp/{d}")
+        else:
+            os.remove(f"/tmp/{d}")
+
     tokenizer = AutoTokenizer.from_pretrained("cointegrated/rubert-tiny2", cache_dir="/tmp/")
     model = AutoModel.from_pretrained("cointegrated/rubert-tiny2", cache_dir="/tmp/")
 
@@ -184,10 +199,7 @@ def create_embedding():
     s3.load_file(
         "emmbeding_pipeline.plk", key=f"{news_path}/emmbeding_pipeline.plk", bucket_name="airflow"
     )
-    dirs = set(os.listdir("/tmp/")) - set(
-        ["models--cointegrated--rubert-tiny2", "requirements.txt", "tmp5sgasuflcacert.pem"])
-    for d in dirs:
-        os.remove(f"/tmp/{d}")
+
 # Create a task to call your processing function
 gen_emmbeding = PythonOperator(
     task_id="create_embedding_and_preroccesor",

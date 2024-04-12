@@ -16,7 +16,6 @@ import pandas as pd
 import numpy as np
 import datetime
 from datetime import timedelta
-from transformers import AutoTokenizer, AutoModel
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV
 from itertools import product
@@ -24,7 +23,6 @@ from sklearn.metrics import make_scorer
 from sklearn.model_selection import cross_val_score
 import re
 from sklearn.model_selection import train_test_split
-import torch
 from sklearn.decomposition import PCA
 from airflow.utils.dates import days_ago
 from botocore.exceptions import (
@@ -149,6 +147,7 @@ def process_moex_data():
     moex.to_csv('/tmp/moex_clean.csv', index=False)
     os.remove("/tmp/moex.csv")
     os.remove("/tmp/moex2.csv")
+    s3.delete_objects(bucket="airflow", keys=f"/moex_data/moex_clean.csv")
     s3.load_file(
         filename="/tmp/moex_clean.csv", key=f"/moex_data/moex_clean.csv", bucket_name="airflow"
     )
@@ -157,7 +156,6 @@ def process_moex_data():
     s3.load_file(
         "moex_pipeline.plk", key=f"/moex_data/moex_pipeline.plk", bucket_name="airflow"
     )
-
 gen_emmbeding = PythonOperator(
     task_id="moex_proccess_create",
     provide_context=True,

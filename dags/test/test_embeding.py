@@ -7,7 +7,9 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
-
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
 import logging
 import torch
 import pandas as pd

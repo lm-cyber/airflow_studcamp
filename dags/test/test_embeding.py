@@ -58,7 +58,7 @@ dag = DAG(
 
 
 def create_embedding():
-    n_comp = 15
+    n_comp = 20
     tokenizer = AutoTokenizer.from_pretrained("cointegrated/rubert-tiny2", cache_dir="/tmp/")
     model = AutoModel.from_pretrained("cointegrated/rubert-tiny2", cache_dir="/tmp/")
 
